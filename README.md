@@ -1,6 +1,6 @@
 # Playwright Fundamentals
 
-A hands-on learning project for end-to-end testing with [Playwright](https://playwright.dev/). It walks through the core building blocks — browser, context, page — plus test annotations, test options, and parallel multi-user scenarios.
+A hands-on learning project for end-to-end testing with [Playwright](https://playwright.dev/). It walks through the core building blocks — browser, context, page — plus test annotations, test options, locators, and parallel multi-user scenarios.
 
 ## Requirements
 
@@ -34,6 +34,7 @@ Run one folder or one spec file:
 ```bash
 npx playwright test tests/01_Basics
 npx playwright test tests/02_TestAnnotations/223_TestAnnotations.spec.ts
+npx playwright test tests/03_Locator_Commands
 ```
 
 Run a single browser project:
@@ -71,9 +72,13 @@ npx playwright show-report     # open the last HTML report
 │   │   ├── 220_BCP.spec.ts               # Browser to Context to Page, step by step
 │   │   ├── 221_TA.spec.ts                # Three roles in three parallel contexts
 │   │   └── 222_Test_Options.spec.ts      # Context options: viewport, locale, geolocation, mobile
-│   └── 02_TestAnnotations/
-│       ├── 223_TestAnnotations.spec.ts   # skip, only, fail, fixme, slow
-│       └── 224_TestDescribe.spec.ts      # Grouping tests with test.describe
+│   ├── 02_TestAnnotations/
+│   │   ├── 223_TestAnnotations.spec.ts   # skip, only, fail, fixme, slow
+│   │   └── 224_TestDescribe.spec.ts      # Grouping tests with test.describe
+│   └── 03_Locator_Commands/
+│       ├── 225_LC.spec.ts                # goto options: waitUntil, timeout, referer
+│       ├── 226_Referer.spec.ts           # Referer header for a whole context
+│       └── 227_Fresh.spec.ts             # Default locators on the VWO login page
 ├── package.json
 └── README.md
 ```
@@ -101,6 +106,12 @@ npx playwright show-report     # open the last HTML report
 
 > **Note:** `223_TestAnnotations.spec.ts` contains a `test.only`, so running the full suite currently executes only that one test. The `forbidOnly` guard in the config is CI-only, so it will not stop you locally. Remove the `.only` to run everything.
 
+**03_Locator_Commands** — navigating with options and finding elements.
+
+- `225_LC.spec.ts` passes `waitUntil`, `timeout`, and `referer` to `page.goto` to control navigation timing and the request's referer header.
+- `226_Referer.spec.ts` sets the `referer` once via `extraHTTPHeaders` on a manually created context, so it applies to every page in that context.
+- `227_Fresh.spec.ts` shows the default locators on the VWO login page — `#id` for the username, password, and login button, plus an assertion on the error message. Default locators map to CSS selectors: `#id`, `.class`, `[name="value"]`, and tag name.
+
 ## Configuration
 
 `playwright.config.ts` is the single source of truth for how tests run:
@@ -125,7 +136,7 @@ Test output goes to `playwright-report/` and `test-results/`. Both, along with `
 
 ## Writing your first test
 
-Create a file under `tests/`, for example `tests/01_Basics/225_login.spec.ts`:
+Create a file under `tests/`, for example `tests/01_Basics/228_login.spec.ts`:
 
 ```ts
 import { test, expect } from '@playwright/test';

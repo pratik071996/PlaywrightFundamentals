@@ -78,7 +78,8 @@ npx playwright show-report     # open the last HTML report
 │   └── 03_Locator_Commands/
 │       ├── 225_LC.spec.ts                # goto options: waitUntil, timeout, referer
 │       ├── 226_Referer.spec.ts           # Referer header for a whole context
-│       └── 227_Fresh.spec.ts             # Default locators on the VWO login page
+│       ├── 227_Fresh.spec.ts             # Default locators on the VWO login page
+│       └── 228_Project3.spec.ts          # XPath locators on the Wingify free-trial form
 ├── package.json
 └── README.md
 ```
@@ -111,6 +112,7 @@ npx playwright show-report     # open the last HTML report
 - `225_LC.spec.ts` passes `waitUntil`, `timeout`, and `referer` to `page.goto` to control navigation timing and the request's referer header.
 - `226_Referer.spec.ts` sets the `referer` once via `extraHTTPHeaders` on a manually created context, so it applies to every page in that context.
 - `227_Fresh.spec.ts` shows the default locators on the VWO login page — `#id` for the username, password, and login button, plus an assertion on the error message. Default locators map to CSS selectors: `#id`, `.class`, `[name="value"]`, and tag name.
+- `228_Project3.spec.ts` is a negative test on the Wingify free-trial form. It locates the email field with XPath (`//input[@id='free-trial-step1-email']`), clicks the two consent checkboxes by CSS id, submits with `//button[@data-qa='page-su-submit']`, and asserts the inline error text. It ends with `page.pause()`, so run it with `--debug` or remove that line for a normal run.
 
 ## Configuration
 

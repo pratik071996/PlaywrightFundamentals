@@ -79,7 +79,9 @@ npx playwright show-report     # open the last HTML report
 │       ├── 225_LC.spec.ts                # goto options: waitUntil, timeout, referer
 │       ├── 226_Referer.spec.ts           # Referer header for a whole context
 │       ├── 227_Fresh.spec.ts             # Default locators on the VWO login page
-│       └── 228_Project3.spec.ts          # XPath locators on the Wingify free-trial form
+│       ├── 228_Project3.spec.ts          # XPath locators on the Wingify free-trial form
+│       ├── 229_getByRole.spec.ts         # getByRole textboxes on the Wingify login page
+│       └── 230_getByRole.spec.ts         # getByRole link click on the Katalon Cura site
 ├── package.json
 └── README.md
 ```
@@ -113,6 +115,8 @@ npx playwright show-report     # open the last HTML report
 - `226_Referer.spec.ts` sets the `referer` once via `extraHTTPHeaders` on a manually created context, so it applies to every page in that context.
 - `227_Fresh.spec.ts` shows the default locators on the VWO login page — `#id` for the username, password, and login button, plus an assertion on the error message. Default locators map to CSS selectors: `#id`, `.class`, `[name="value"]`, and tag name.
 - `228_Project3.spec.ts` is a negative test on the Wingify free-trial form. It locates the email field with XPath (`//input[@id='free-trial-step1-email']`), clicks the two consent checkboxes by CSS id, submits with `//button[@data-qa='page-su-submit']`, and asserts the inline error text. It ends with `page.pause()`, so run it with `--debug` or remove that line for a normal run.
+- `229_getByRole.spec.ts` uses role-based locators on the Wingify login page — `getByRole('textbox', { name: 'Email' })` and `{ name: 'Password' }` — to fill the credentials. It also ends with `page.pause()`.
+- `230_getByRole.spec.ts` opens the Katalon Cura demo site and clicks the link found with `getByRole('link', { name: 'Make Appointment', exact: true })`. It also ends with `page.pause()`.
 
 ## Configuration
 
